@@ -69,10 +69,10 @@ export class FetchApiDataService {
   }
 
   // Get All Movies
-  public getAllMovies(): Observable<any[]> {
+  public getAllMovies(): Observable<any> {
     const token = this.getToken();
     return this.http
-      .get<any[]>(apiUrl + 'movies', {
+      .get<any>(apiUrl + 'movies', {
         headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
       })
       .pipe(catchError(this.handleError));
