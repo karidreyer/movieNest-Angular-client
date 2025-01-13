@@ -37,7 +37,7 @@ loginUser(): void {
      this.router.navigate(['movies']);
     }, (result) => {
       console.log(result);
-      this.snackBar.open('Login successful', 'OK', {
+      this.snackBar.open('Incorrect username or password.', 'OK', {
         duration: 2000
       });
     });
