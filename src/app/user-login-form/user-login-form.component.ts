@@ -25,11 +25,10 @@ constructor(
 
 ngOnInit(): void {}
 
-// This is the function responsible for sending the form inputs to the backend
 loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe((result) => {
      this.dialogRef.close(); // This will close the modal on success
-     localStorage.setItem('token', result.token);
+     localStorage.setItem('token', result.token); // This will store the token in the local storage for authentication
      this.snackBar.open('Login successful', 'OK', {
         duration: 2000
      });
