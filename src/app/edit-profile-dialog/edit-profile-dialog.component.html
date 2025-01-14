@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Edit Profile</h2>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Birth Date</mat-label>
+      <input matInput formControlName="birthDate" type="date" required />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button type="submit" [disabled]="!profileForm.valid">Save</button>
+  </mat-dialog-actions>
+</form>
