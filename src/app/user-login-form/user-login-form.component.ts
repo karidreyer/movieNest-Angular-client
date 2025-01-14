@@ -29,6 +29,8 @@ loginUser(): void {
     this.fetchApiData.userLogin(this.userData).subscribe((result) => {
      this.dialogRef.close(); // This will close the modal on success
      localStorage.setItem('token', result.token); // This will store the token in the local storage for authentication
+     localStorage.setItem('user', JSON.stringify(result.user));  // Save the user data in local storage for profile page
+     
      this.snackBar.open('Login successful', 'OK', {
         duration: 2000
      });
