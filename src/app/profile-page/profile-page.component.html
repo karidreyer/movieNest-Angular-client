@@ -1,0 +1,8 @@
+<div class="profile-container">
+  <h2>Profile Information</h2>
+  <p><strong>Username:</strong> {{ user.Username }}</p>
+  <p><strong>Email:</strong> {{ user.Email }}</p>
+  <p><strong>Birth Date:</strong> {{ user.BirthDate | date }}</p>
+
+  <button mat-raised-button color="primary" (click)="openEditProfileDialog()">Edit Profile</button>
+</div>
