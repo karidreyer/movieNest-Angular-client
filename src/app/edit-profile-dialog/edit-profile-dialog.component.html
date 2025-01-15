@@ -8,12 +8,17 @@
 
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" required />
+      <input matInput formControlName="email" type="email" required />
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Birth Date</mat-label>
       <input matInput formControlName="birthDate" type="date" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>New Password</mat-label>
+      <input matInput formControlName="password" type="password" />
     </mat-form-field>
   </mat-dialog-content>
 

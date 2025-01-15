@@ -20,16 +20,15 @@ export class ProfilePageComponent implements OnInit {
   
     if (storedUser) {
       let user = JSON.parse(storedUser);
-      console.log('User data from localStorage:', user); // Log the parsed user data to verify
+      console.log('User data from localStorage:', user); // DEBUGGING
 
       this.userData.userName = user.Username;
       this.userData.email = user.Email;
       this.userData.birthDate = new Date(user.BirthDate);
       this.userData.password = null;
     } else {
-      // Handle the case when no user is stored (e.g., redirect to login page or show an error)
       console.error('User not found in localStorage');
-      // Optionally redirect or show a message here
+      // Add a re-direct here?
     }
   }
 
@@ -39,23 +38,53 @@ export class ProfilePageComponent implements OnInit {
   openEditProfileDialog(): void {
     const dialogRef = this.dialog.open(EditProfileDialogComponent, {
       width: '400px',
-      data: this.userData  // Pass the current user data to the dialog
+      data: {
+        username: this.userData.userName,
+        email: this.userData.email,
+        birthDate: this.userData.birthDate.toISOString().split('T')[0], // Format as YYYY-MM-DD
+        password: null
+      }
     });
-
-    // After the dialog closes, update the profile if the user made changes
+    console.log('Opening dialog with data:', this.userData); //DEBUGGING
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.updateProfile(result);  // result will contain the updated user data
+        this.updateProfile(result);
       }
     });
   }
 
-  // Update the user's profile (this should call your API to update the data)
-  updateProfile(updatedUser: any): void {
-    this.fetchApiData.updateUser(updatedUser.userName, updatedUser).subscribe((response) => {
-      console.log('User updated successfully!', response);
-      this.userData = updatedUser;  // Update the local user data with the changes
-      localStorage.setItem("user", JSON.stringify(updatedUser));  // Store updated data in localStorage
-    });
+// Update the user's profile (this calls the API to update the data)
+updateProfile(updatedUser: any): void {
+  // Map the form fields to the expected API format
+  const formattedData: any = {
+    Username: updatedUser.username,  // Map 'username' to 'Username'
+    Email: updatedUser.email,        // Map 'email' to 'Email'
+    BirthDate: new Date(updatedUser.birthDate).toISOString(), // Convert birthDate to ISO string format
+  };
+
+  // Only add Password if it's provided (check for changes)
+  if (updatedUser.password && updatedUser.password !== '') {
+    formattedData.Password = updatedUser.password;  // Map 'password' to 'Password'
   }
+
+  // Log the formatted data to the console before sending it to the API - DEBUGGING
+  console.log('Formatted data to send to API:', formattedData);
+
+  // Use the original username from localStorage as we don't want to overwrite it
+  const originalUsername = this.userData.Username;
+
+  // Make the API call to update the user
+  this.fetchApiData.updateUser(originalUsername, formattedData).subscribe(
+    (response) => {
+      console.log('User updated successfully!', response);
+
+      // Update localStorage and userData with the response
+      this.userData = { ...this.userData, ...response };
+      localStorage.setItem('user', JSON.stringify(this.userData)); // Save updated user data back to localStorage
+    },
+    (error) => {
+      console.error('Error updating user:', error);
+    }
+  );
+}
 }
