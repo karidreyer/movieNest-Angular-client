@@ -49,10 +49,10 @@ export class FetchApiDataService {
   }
 
   // Update User
-  public updateUser(username: string, userDetails: any): Observable<any> {
+  public updateUser(username: string, updatedUser: any): Observable<any> {
     const token = this.getToken();
     return this.http
-      .put(`${apiUrl}users/${username}`, userDetails, {
+      .put(`${apiUrl}users/${username}`, updatedUser, {
         headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
       })
       .pipe(catchError(this.handleError));
