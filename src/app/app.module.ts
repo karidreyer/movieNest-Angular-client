@@ -29,6 +29,7 @@ import { DirectorDialogComponent } from './director-dialog/director-dialog.compo
 import { EditProfileDialogComponent } from './edit-profile-dialog/edit-profile-dialog.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { SynopsisDialogComponent } from './synopsis-dialog/synopsis-dialog.component';
 
 const appRoutes: Routes = [
 
@@ -57,7 +58,8 @@ const appRoutes: Routes = [
     DirectorDialogComponent,
     EditProfileDialogComponent,
     NavBarComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    SynopsisDialogComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -78,6 +80,6 @@ const appRoutes: Routes = [
   ],
   providers: [FetchApiDataService, DatePipe],
   bootstrap: [AppComponent],
-  entryComponents: [GenreDialogComponent, DirectorDialogComponent] // Declare dialog components
+  entryComponents: [GenreDialogComponent, DirectorDialogComponent, SynopsisDialogComponent] // Declare dialog components
 })
 export class AppModule { }
