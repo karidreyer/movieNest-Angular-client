@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -75,7 +76,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     MatToolbarModule
   ],
-  providers: [FetchApiDataService],
+  providers: [FetchApiDataService, DatePipe],
   bootstrap: [AppComponent],
   entryComponents: [GenreDialogComponent, DirectorDialogComponent] // Declare dialog components
 })
