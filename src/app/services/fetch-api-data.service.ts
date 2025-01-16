@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { User } from '../user.model';
 
 
 const apiUrl = 'https://movie-nest-app-630a7e8ce836.herokuapp.com/';
@@ -49,7 +50,7 @@ export class FetchApiDataService {
   }
 
   // Update User
-  public updateUser(username: string, updatedUser: any): Observable<any> {
+  public updateUser(username: string, updatedUser: User): Observable<any> {
     const token = this.getToken();
     return this.http
       .put(`${apiUrl}users/${username}`, updatedUser, {
