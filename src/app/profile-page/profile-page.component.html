@@ -1,8 +1,36 @@
 <div class="profile-container">
-  <h2>Profile Information</h2>
-  <p><strong>Username:</strong> {{ userData.userName }}</p>
-  <p><strong>Email:</strong> {{ userData.email }}</p>
-  <p><strong>Birth Date:</strong> {{ userData.birthDate | date:'mediumDate' }}</p>
+  <h2>Hello, {{ userData.Username }}!</h2>
+  <p><strong>Username:</strong> {{ userData.Username }}</p>
+  <p><strong>Email:</strong> {{ userData.Email }}</p>
+  <p><strong>Birth Date:</strong> {{ userData.BirthDate | date:'mediumDate' }}</p>
 
   <button mat-raised-button color="primary" (click)="openEditProfileDialog()">Edit Profile</button>
+
+  <h3>My Favorite Movies</h3>
+  <div *ngIf="favoriteMovies.length === 0" class="no-favorites">
+    No favorite movies yet!
+  </div>
+
+  <!-- Reuse Movie Card Logic for Favorite Movies -->
+  <div *ngIf="favoriteMovies.length > 0" class="favorites-grid">
+    <div *ngFor="let movie of favoriteMovies">
+      <mat-card class="movie-card">
+        <mat-card-header>
+          <mat-card-title>{{ movie.Title }}</mat-card-title>
+          <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="movie.ImagePath" [alt]="movie.Title" />
+        <mat-card-actions>
+          <!-- Heart Icon (already implemented in toggle logic) -->
+          <button
+            mat-icon-button
+            (click)="toggleFavorite(movie._id)"
+            aria-label="Toggle favorite"
+          >
+            <mat-icon>{{ isFavorite(movie._id) ? 'favorite' : 'favorite_border' }}</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
