@@ -130,17 +130,6 @@ export class FetchApiDataService {
       .pipe(catchError(this.handleError));
   }
 
-  // Get Favorite Movies
-  public getFavoriteMovies(username: string): Observable<any> {
-    const token = this.getToken();
-    return this.http
-      .get(`${apiUrl}users/${username}/movies`, {
-        headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
-      })
-      .pipe(catchError(this.handleError));
-  }
-
-
   // Extract Response Data
   private extractResponseData(res: any): any {
     return res || {};
