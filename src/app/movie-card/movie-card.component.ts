@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../services/fetch-api-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GenreDialogComponent } from '../genre-dialog/genre-dialog.component';
@@ -12,8 +12,9 @@ import { User } from '../user.model';
   styleUrls: ['./movie-card.component.scss']
 })
 export class MovieCardComponent implements OnInit {
-  movies: any[] = []; // To hold all movies
-  favoriteMovies: any[] = []; // To store IDs of user's favorite movies
+  @Input() movies: any[] = []; // Accept an array of movies from the parent component
+  favoriteMovies: string[] = []; // To store IDs of user's favorite movies
+  loadingFavorites: boolean = true; // Add a loading flag for favoriteMovies
   
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -21,53 +22,74 @@ export class MovieCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getMovies();
-    this.getFavoriteMovies();
-  }
-
-  // Fetch all movies
-  getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.movies = resp;
-      console.log(this.movies);
-      return this.movies;
-    });
-  }
-
-  // Fetch user's favorite movies
-  getFavoriteMovies(): void {
-    const storedUser: User = JSON.parse(localStorage.getItem('user') || '{}');
-    if (!storedUser.Username) {
-      console.error('User not found in localStorage');
-      return;
+    if (this.movies.length === 0) {
+      // If no movies are passed, fetch all movies
+      this.getMovies();
     }
+    this.getFavoriteMovies(); // Fetch user's favourite movies
+  }
 
-    this.fetchApiData.getFavoriteMovies(storedUser.Username).subscribe(
+   // Fetch all movies from the API
+   getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe(
       (resp: any) => {
-        this.favoriteMovies = resp.map((movie: any) => movie._id); // Store only movie IDs
-        console.log('Favorite movies:', this.favoriteMovies);
+        this.movies = resp;
+        console.log('All movies:', this.movies);
       },
       (error) => {
-        console.error('Error fetching favorite movies:', error);
+        console.error('Error fetching all movies:', error);
       }
     );
   }
 
-  // Check if a movie is a favorite
-  isFavorite(movieId: string): boolean {
-    return this.favoriteMovies.includes(movieId);
-  }
-
-  // Toggle favorite status for a movie
-  toggleFavorite(movieId: string): void {
-    const storedUser: User = JSON.parse(localStorage.getItem('user') || '{}');
-    if (!storedUser.Username) {
+  // Fetch the user's favourite movies (for displaying the favorite icon)
+  getFavoriteMovies(): void {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
       console.error('User not found in localStorage');
       return;
     }
 
+    // Use the User model for type safety
+    const user: User = JSON.parse(storedUser); // Parse the stored user data
+    const username = user.Username; // Get the Username from the user object
+
+    this.fetchApiData.getUser(username).subscribe(
+      (resp: any) => {
+        this.favoriteMovies = resp.FavouriteMovies || []; // Safely handle FavouriteMovies
+        console.log('Favorite movie IDs:', this.favoriteMovies);
+        this.loadingFavorites = false; // Mark loading as complete
+      },
+      (error) => {
+        console.error('Error fetching favorite movies:', error);
+        this.loadingFavorites = false; // Mark loading as complete even on error
+      }
+    );
+  }
+
+  // Check if a movie is a favourite
+  isFavorite(movieId: string): boolean {
+    if (this.loadingFavorites) {
+      return false; // Default to outline while loading
+    }
+    return this.favoriteMovies.includes(movieId);
+  }
+
+  // Toggle favourite status for a movie
+  toggleFavorite(movieId: string): void {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      console.error('User not found in localStorage');
+      return;
+    }
+
+    // Use the User model for type safety
+    const user: User = JSON.parse(storedUser);
+    const username = user.Username;
+
     if (this.isFavorite(movieId)) {
-      this.fetchApiData.deleteFavoriteMovie(storedUser.Username, movieId).subscribe(
+      // Remove from favorites
+      this.fetchApiData.deleteFavoriteMovie(username, movieId).subscribe(
         () => {
           this.favoriteMovies = this.favoriteMovies.filter(id => id !== movieId);
           console.log('Movie removed from favorites:', movieId);
@@ -77,7 +99,8 @@ export class MovieCardComponent implements OnInit {
         }
       );
     } else {
-      this.fetchApiData.addFavoriteMovie(storedUser.Username, movieId).subscribe(
+      // Add to favourites
+      this.fetchApiData.addFavoriteMovie(username, movieId).subscribe(
         () => {
           this.favoriteMovies.push(movieId);
           console.log('Movie added to favorites:', movieId);
