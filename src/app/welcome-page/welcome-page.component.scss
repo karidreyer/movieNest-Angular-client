@@ -1,0 +1,36 @@
+.welcome-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f5f5f5; /* Optional: Add a subtle background color */
+  }
+  
+  .welcome-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #3f51b5; /* Angular Material's primary color */
+    margin-bottom: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .or-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #757575; /* A neutral gray color */
+    margin: 10px 0;
+  }
+  
+  .styled-button {
+    border-radius: 20px; /* Adds rounded edges to the buttons */
+    width: 150px; /* Optional: Standardize button width */
+  }

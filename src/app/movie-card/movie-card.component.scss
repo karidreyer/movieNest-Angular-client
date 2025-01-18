@@ -1,0 +1,11 @@
+mat-icon {
+    font-size: 24px; /* Adjust size if needed */
+  }
+  
+  mat-icon.favorite-icon {
+    color: red; /* Red for the heart icon */
+  }
+  
+  .favorite-button:hover mat-icon {
+    opacity: 0.8; /* Slight fade on hover */
+  }

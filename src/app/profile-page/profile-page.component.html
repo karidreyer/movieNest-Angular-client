@@ -1,0 +1,22 @@
+<div class="profile-container">
+  <!-- User Greeting and Information -->
+  <h2>Hello, {{ userData.Username }}!</h2>
+  <p><strong>Username:</strong> {{ userData.Username }}</p>
+  <p><strong>Email:</strong> {{ userData.Email }}</p>
+  <p><strong>Birth Date:</strong> {{ userData.BirthDate | date:'mediumDate' }}</p>
+
+  <!-- Edit Profile Button -->
+  <button mat-raised-button color="primary" (click)="openEditProfileDialog()">Edit Profile</button>
+
+  <!-- Favorite Movies Section -->
+  <h3>My Favourite Movies</h3>
+  <div *ngIf="favoriteMovies.length === 0" class="no-favorites">
+    No favourite movies yet!
+  </div>
+
+  <!-- Reuse MovieCardComponent to Display Favorite Movies -->
+  <app-movie-card
+    *ngIf="favoriteMovies.length > 0"
+    [movies]="favoriteMovies"
+  ></app-movie-card>
+</div>

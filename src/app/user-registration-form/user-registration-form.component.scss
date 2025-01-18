@@ -1,0 +1,28 @@
+.card-title {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 16px; /* Spacing below the title */
+  }
+  
+  .form-field {
+    width: 100%; /* Full-width input fields */
+    margin-bottom: 12px; /* Reduced spacing between fields and the button */
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the bottom-right */
+    margin-top: 12px; /* Reduced space above the buttons */
+    padding-right: 16px; /* Added space between the edge of the dialog and the button */
+  }
+  
+  .custom-button {
+    border-radius: 20px; /* Rounded edges for buttons */
+    padding: 12px 24px; /* Increased padding for larger buttons */
+    font-size: 14px; /* Maintain a readable font size */
+  }
+  
+  .mat-card {
+    padding: 24px; /* Adjust padding inside the card for balance */
+  }
+  

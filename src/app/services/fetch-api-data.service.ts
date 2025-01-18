@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { User } from '../user.model';
 
 
 const apiUrl = 'https://movie-nest-app-630a7e8ce836.herokuapp.com/';
@@ -49,10 +50,10 @@ export class FetchApiDataService {
   }
 
   // Update User
-  public updateUser(username: string, userDetails: any): Observable<any> {
+  public updateUser(username: string, updatedUser: User): Observable<any> {
     const token = this.getToken();
     return this.http
-      .put(`${apiUrl}users/${username}`, userDetails, {
+      .put(`${apiUrl}users/${username}`, updatedUser, {
         headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
       })
       .pipe(catchError(this.handleError));
@@ -128,17 +129,6 @@ export class FetchApiDataService {
       })
       .pipe(catchError(this.handleError));
   }
-
-  // Get Favorite Movies
-  public getFavoriteMovies(username: string): Observable<any> {
-    const token = this.getToken();
-    return this.http
-      .get(`${apiUrl}users/${username}/movies`, {
-        headers: new HttpHeaders({ Authorization: `Bearer ${token}` }),
-      })
-      .pipe(catchError(this.handleError));
-  }
-
 
   // Extract Response Data
   private extractResponseData(res: any): any {

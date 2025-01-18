@@ -34,7 +34,7 @@ registerUser(): void {
      });
     }, (result) => {
       console.log(result);
-      this.snackBar.open('Signup successful', 'OK', {
+      this.snackBar.open('Signup failed, please try again.', 'OK', {
         duration: 2000
       });
     });

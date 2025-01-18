@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <span>myFlix</span>
+  <span class="spacer"></span>
+
+  <!-- Menu options -->
+  <button mat-button [routerLink]="['movies']">Movies</button>
+  <button mat-button [routerLink]="['profile']">Profile</button>
+  <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
