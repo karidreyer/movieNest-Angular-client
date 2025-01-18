@@ -1,36 +1,22 @@
 <div class="profile-container">
+  <!-- User Greeting and Information -->
   <h2>Hello, {{ userData.Username }}!</h2>
   <p><strong>Username:</strong> {{ userData.Username }}</p>
   <p><strong>Email:</strong> {{ userData.Email }}</p>
   <p><strong>Birth Date:</strong> {{ userData.BirthDate | date:'mediumDate' }}</p>
 
+  <!-- Edit Profile Button -->
   <button mat-raised-button color="primary" (click)="openEditProfileDialog()">Edit Profile</button>
 
-  <h3>My Favorite Movies</h3>
+  <!-- Favorite Movies Section -->
+  <h3>My Favourite Movies</h3>
   <div *ngIf="favoriteMovies.length === 0" class="no-favorites">
-    No favorite movies yet!
+    No favourite movies yet!
   </div>
 
-  <!-- Reuse Movie Card Logic for Favorite Movies -->
-  <div *ngIf="favoriteMovies.length > 0" class="favorites-grid">
-    <div *ngFor="let movie of favoriteMovies">
-      <mat-card class="movie-card">
-        <mat-card-header>
-          <mat-card-title>{{ movie.Title }}</mat-card-title>
-          <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="movie.ImagePath" [alt]="movie.Title" />
-        <mat-card-actions>
-          <!-- Heart Icon (already implemented in toggle logic) -->
-          <button
-            mat-icon-button
-            (click)="toggleFavorite(movie._id)"
-            aria-label="Toggle favorite"
-          >
-            <mat-icon>{{ isFavorite(movie._id) ? 'favorite' : 'favorite_border' }}</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </div>
+  <!-- Reuse MovieCardComponent to Display Favorite Movies -->
+  <app-movie-card
+    *ngIf="favoriteMovies.length > 0"
+    [movies]="favoriteMovies"
+  ></app-movie-card>
 </div>
