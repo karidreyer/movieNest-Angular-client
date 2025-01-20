@@ -1,12 +1,36 @@
 <div class="profile-container">
-  <!-- User Greeting and Information -->
-  <h2>Hello, {{ userData.Username }}!</h2>
-  <p><strong>Username:</strong> {{ userData.Username }}</p>
-  <p><strong>Email:</strong> {{ userData.Email }}</p>
-  <p><strong>Birth Date:</strong> {{ userData.BirthDate | date:'mediumDate' }}</p>
+  <!-- Grid for Profile Heading, Details, and Edit Button -->
+  <div class="profile-info-grid">
+    <!-- Heading -->
+    <div class="profile-header">
+      <h2>Hello, {{ userData.Username }}!</h2>
+    </div>
 
-  <!-- Edit Profile Button -->
-  <button mat-raised-button color="primary" (click)="openEditProfileDialog()">Edit Profile</button>
+    <!-- User Details -->
+    <div class="profile-details">
+      <table>
+        <tr>
+          <th>Username</th>
+          <td>{{ userData.Username }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ userData.Email }}</td>
+        </tr>
+        <tr>
+          <th>Birth Date</th>
+          <td>{{ userData.BirthDate | date:'mediumDate' }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Edit Profile Button -->
+    <div class="profile-edit-button">
+      <button mat-raised-button color="primary" (click)="openEditProfileDialog()">
+        Edit Profile
+      </button>
+    </div>
+  </div>
 
   <!-- Favorite Movies Section -->
   <h3>My Favourite Movies</h3>
@@ -14,7 +38,6 @@
     No favourite movies yet!
   </div>
 
-  <!-- Reuse MovieCardComponent to Display Favorite Movies -->
   <app-movie-card
     *ngIf="favoriteMovies.length > 0"
     [movies]="favoriteMovies"

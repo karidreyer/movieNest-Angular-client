@@ -1,35 +1,49 @@
 .profile-container {
-    padding: 16px;
-    max-width: 800px;
-    margin: 0 auto;
-  
-    h2, h3 {
-      margin-bottom: 16px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* The new grid for the user info and button */
+  .profile-info-grid {
+    display: grid;
+    grid-gap: 20px; /* Space between grid cells */
+    
+    /* We want 2 columns:
+       - 1fr for text (user details)
+       - auto for the edit button */
+    grid-template-columns: 1fr auto;
+    
+    /* We’ll arrange the heading across both columns in row 1,
+       then user details + edit button in row 2. */
+    grid-template-areas:
+      "header header"
+      "details button";
+
+    margin-bottom: 20px; /* Space under this section */
+
+    /* Heading occupies the full top row */
+    .profile-header {
+      grid-area: header;
     }
-  
-    .no-favorites {
-      text-align: center;
-      font-style: italic;
-      margin-top: 16px;
+
+    /* User details in bottom-left cell */
+    .profile-details {
+      grid-area: details;
     }
-  
-    .favorites-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-    }
-  
-    .movie-card {
-      position: relative;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-  
-    mat-card-actions {
-      display: flex;
-      justify-content: flex-end;
+
+    /* Button in bottom-right cell */
+    .profile-edit-button {
+      grid-area: button;
+
+      /* Push the button to the bottom-right corner of its cell */
+      align-self: end;   
+      justify-self: end; 
     }
   }
-  
+
+  .no-favorites {
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+  }
+}

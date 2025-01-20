@@ -1,8 +1,9 @@
-<h2 mat-dialog-title>Director: {{data.Name}}</h2>
+<h2 mat-dialog-title>{{data.Name}}</h2>
 <mat-dialog-content>
-  <p><strong>Bio:</strong> {{data.Bio}}</p>
-  <p><strong>Birth Year:</strong> {{data.Birth}}</p>
-  <p><strong>Death Year:</strong> {{data.Death || 'N/A'}}</p>
+  <p><strong>Director Biography</strong> </p>
+  <p>{{data.Birth}} - {{data.Death || 'present'}}</p>
+  <p>{{data.Bio}}</p>
+  
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>

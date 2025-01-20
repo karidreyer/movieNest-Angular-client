@@ -1,27 +1,33 @@
-<div style="display: flex; flex-wrap: wrap; gap: 16px;">
-  <mat-card *ngFor="let movie of movies;" style="flex: 1 1 calc(33% - 16px);">
-    <mat-card-header>
-      <mat-card-title>{{ movie.Title }}</mat-card-title>
-      <mat-card-subtitle>Directed by: {{ movie.Director.Name }}</mat-card-subtitle>
-    </mat-card-header>
-    <img src="{{ movie.ImagePath }}" alt="{{ movie.Title }}" style="width: 100%; height: auto;" />
-    <mat-card-actions style="display: flex; justify-content: space-between; align-items: center;">
-      <div>
-        <button mat-button color="primary" (click)="openGenreDialog(movie)">Genre</button>
-        <button mat-button color="primary" (click)="openDirectorDialog(movie)">Director</button>
-        <button mat-button color="primary" (click)="openSynopsisDialog(movie)">Synopsis</button>
-      </div>
-      <!-- Favorite Heart Icon -->
-      <button
+<div class="movie-cards-container">
+    <mat-card *ngFor="let movie of movies">
+      <!-- Movie Image -->
+      <div class="image-container"> 
+        <!-- Heart Icon at the top left corner -->     
+        <button
         mat-icon-button
+        class="favorite-icon"
         (click)="toggleFavorite(movie._id)"
         [attr.aria-label]="'Toggle favorite status for ' + movie.Title"
         style="color: red;"
-      >
+        >
         <mat-icon>
-          {{ isFavorite(movie._id) ? 'favorite' : 'favorite_border' }}
+            {{ isFavorite(movie._id) ? 'favorite' : 'favorite_border' }}
         </mat-icon>
       </button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+        <img src="{{ movie.ImagePath }}" alt="{{ movie.Title }}" />
+      </div>
+  
+      <!-- Movie Info -->
+      <div class="info-container">
+        <mat-card-title>{{ movie.Title }}</mat-card-title>
+        <mat-card-subtitle>Directed by {{ movie.Director.Name }}</mat-card-subtitle>
+  
+        <!-- Buttons for Dialog -->
+        <div class="dialog-buttons">
+          <button mat-button (click)="openGenreDialog(movie)">Genre</button>
+          <button mat-button (click)="openDirectorDialog(movie)">Director</button>
+          <button mat-button (click)="openSynopsisDialog(movie)">Synopsis</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
