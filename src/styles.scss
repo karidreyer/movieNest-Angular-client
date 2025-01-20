@@ -1,25 +1,16 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+// Include the common styles for Angular Material.
 @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$movieNest-Angular-client-primary: mat.define-palette(mat.$indigo-palette);
-$movieNest-Angular-client-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
+$movieNest-Angular-client-primary: mat.define-palette(mat.$grey-palette, 200); // Light gray for primary
+$movieNest-Angular-client-accent: mat.define-palette(mat.$grey-palette, 500); // Slightly darker gray for accent
 $movieNest-Angular-client-warn: mat.define-palette(mat.$red-palette);
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
+// Create the theme object.
 $movieNest-Angular-client-theme: mat.define-light-theme((
   color: (
     primary: $movieNest-Angular-client-primary,
@@ -29,11 +20,180 @@ $movieNest-Angular-client-theme: mat.define-light-theme((
 ));
 
 // Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes($movieNest-Angular-client-theme);
 
-/* You can add global styles to this file, and also import other style files */
+// Import Font
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Global Styles
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Noto Sans", serif;
+  background-color: #ffffff; 
+  color: black; 
+}
+
+// Buttons (Global Style)
+button, .mat-mdc-button {
+  font-family: "Noto Sans", serif;
+  font-weight: 600;
+  border-radius: 20px !important;  /* Rounded edges */
+  padding: 10px 20px;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: none; /* Remove Angular Material's shadow */
+  text-transform: none; /* Disable uppercase transformation */
+}
+
+button:hover, .mat-mdc-button:hover {
+  background-color: white;
+  color: black;
+}
+
+// Fix for Welcome Page Buttons
+.welcome-page button, .welcome-page .mat-mdc-raised-button {
+  font-family: "Noto Sans", serif;
+  font-weight: 600;
+  border-radius: 20px !important;
+  padding: 10px 20px !important;
+  border: 1px solid black !important;
+  background-color: black !important;
+  color: white !important;
+  cursor: pointer !important;
+  text-transform: none !important;
+  transition: background-color 0.3s, color 0.3s !important;
+  width: 250px;
+}
+
+.welcome-page button:hover, .welcome-page .mat-mdc-raised-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+// Fix for Dialog Buttons (Movies Page)
+mat-dialog-actions button, 
+mat-dialog-actions .mat-mdc-raised-button {
+  font-family: "Noto Sans", serif;
+  font-weight: 600;
+  border-radius: 20px !important;
+  padding: 10px 20px !important;
+  border: 1px solid black !important;
+  background-color: black !important;
+  color: white !important;
+  cursor: pointer !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+}
+
+mat-dialog-actions button:hover, 
+mat-dialog-actions .mat-mdc-raised-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+// Disabled Buttons
+button:disabled, 
+.mat-mdc-button.mat-mdc-button-disabled {
+  background-color: #ccc !important; /* Light gray for disabled background */
+  color: #666 !important; /* Dark gray text for disabled buttons */
+  cursor: not-allowed !important;
+}
+
+// Angular Material Toolbar (Navigation Bar)
+mat-toolbar {
+  background-color: #f8f8f8 !important; /* Match the offwhite background */
+  color: black !important; /* Black text for nav bar */
+  border-bottom: none; /* Thin black border for a clean look */
+  font-family: 'Poppins', sans-serif; /* Font styling for toolbar */
+}
+
+mat-toolbar button {
+  font-family: "Noto Sans", serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+mat-toolbar button:hover {
+  text-decoration: underline; /* Underline links on hover */
+}
+
+mat-toolbar button.active {
+  border-bottom: 2px solid black; /* Thin underline for the active page link */
+}
+
+// Mat Cards (for Movie Cards)
+mat-card-actions button {
+  background: none;
+  border: none;
+  color: black;
+  font-weight: 600;
+  font-family: "Noto Sans", serif;
+  text-transform: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+  margin-right: 8px;
+}
+
+.movie-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 13px;
+  padding: 20px;
+  justify-content: center;
+}
+
+// Mat Dialog updates for Movie Card Dialogs
+[mat-dialog-title] {
+  font-family: "Noto Sans", sans-serif !important;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+
+mat-dialog-content,
+mat-dialog-content * {
+  font-family: "Noto Sans", sans-serif !important;
+}
+
+mat-dialog-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+/* Nav Bar Buttons Override */
+mat-toolbar button {
+  /* Force these to look like text links, not "buttons" */
+  background-color: transparent !important;
+  border: none !important;
+  color: black !important;
+  padding: 0 8px !important; /* slight spacing if desired */
+  margin: 0 !important;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: none;
+
+  /* Remove the "white flash" background on hover */
+  &:hover {
+    background-color: none !important;
+    color: black !important;    /* remain black text */
+    text-decoration: none; /* only underline on hover */
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .movie-cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .movie-cards-container {
+    grid-template-columns: 1fr;
+  }
+}
