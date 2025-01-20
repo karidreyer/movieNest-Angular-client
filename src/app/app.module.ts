@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     FormsModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
   providers: [FetchApiDataService, DatePipe],
   bootstrap: [AppComponent],
