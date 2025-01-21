@@ -37,7 +37,6 @@ export class EditProfileDialogComponent {
       // Format the birth date - NEEDED?
       formValues.BirthDate = new Date(formValues.BirthDate).toISOString().split('T')[0];
   
-      console.log('Form values on submit:', formValues); // DEBUGGING
       this.dialogRef.close(formValues); // Return the data
     }
   }

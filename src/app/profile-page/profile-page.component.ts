@@ -72,7 +72,6 @@ export class ProfilePageComponent implements OnInit {
         this.favoriteMovies = movies.filter((movie) =>
           favoriteMovieIds.includes(movie._id)
         );
-        console.log('Filtered favorite movies:', this.favoriteMovies);
       },
       (error) => {
         console.error('Error fetching all movies:', error);
