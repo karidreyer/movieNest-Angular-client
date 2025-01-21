@@ -4,14 +4,28 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { User } from '../user.model';
 
+/**
+ * EditProfileDialogComponent provides a form for editing a user's profile information.
+ * Displays the current user data, allowing updates to username, email, birth date, and password.
+ */
 @Component({
   selector: 'app-edit-profile-dialog',
   templateUrl: './edit-profile-dialog.component.html',
   styleUrls: ['./edit-profile-dialog.component.scss']
 })
 export class EditProfileDialogComponent {
+  /**
+   * The reactive form group containing user profile fields.
+   */
   profileForm: FormGroup;
 
+  /**
+   * Creates an instance of EditProfileDialogComponent.
+   * @param fb FormBuilder for creating a reactive form
+   * @param dialogRef Reference to this dialog to close it after saving/canceling
+   * @param data The user data injected from `ProfilePageComponent`
+   * @param datePipe Used to format the `BirthDate` for the form
+   */
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditProfileDialogComponent>,
@@ -29,7 +43,9 @@ export class EditProfileDialogComponent {
     });
   }
 
-  // Save the form data
+  /**
+  * Submits the form data. If valid, the dialog is closed and the updated data is returned.
+  */
   onSubmit(): void {
     if (this.profileForm.valid) {
       const formValues = this.profileForm.value as User; // Explicitly cast to User model
@@ -41,7 +57,9 @@ export class EditProfileDialogComponent {
     }
   }
 
-  // Close the dialog without saving
+  /**
+   * Cancels the edit operation, closing the dialog without passing any data.
+   */
   onCancel(): void {
     this.dialogRef.close(null); // Explicitly pass null to indicate no changes
   }

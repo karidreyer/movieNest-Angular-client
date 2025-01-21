@@ -31,11 +31,25 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SynopsisDialogComponent } from './synopsis-dialog/synopsis-dialog.component';
 
+/**
+ * Defines the main application routes. 
+ * - Redirects the root path to `/welcome`.
+ * - Loads a main layout wrapper for the `/movies` and `/profile` paths.
+ */
 const appRoutes: Routes = [
-
+  /**
+   * Redirect the root path to welcome page.
+   */
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
-
+  
+  /**
+   * Load the welcome page component.
+   */
   { path: 'welcome', component: WelcomePageComponent },
+  
+  /**
+   * Main layout wrapper containing child routes for movies and profile.
+   */
   {
     path: '',
     component: MainLayoutComponent,
@@ -46,6 +60,15 @@ const appRoutes: Routes = [
   }
 ];
 
+/**
+ * The root module for the MovieNest Angular application.
+ * 
+ * This module:
+ * - Declares all top-level components (e.g., `AppComponent`, `MovieCardComponent`, etc.).
+ * - Imports Angular modules (Router, Forms, HTTP, etc.) and Material modules (MatDialog, MatCard, etc.).
+ * - Provides the core application service `FetchApiDataService` and `DatePipe`.
+ * - Boots the application with `AppComponent`.
+ */
 @NgModule({
   declarations: [
     AppComponent,

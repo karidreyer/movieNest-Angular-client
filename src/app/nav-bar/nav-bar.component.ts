@@ -2,17 +2,29 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * NavBarComponent provides a navigation bar with options to log out,
+ * and possibly other links (Movies, Profile, etc.).
+ */
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
+  /**
+   * @param router For navigation to the welcome page on logout
+   * @param snackBar For displaying logout success notifications
+   */
   constructor(
     private router: Router,
     private snackBar: MatSnackBar
   ) {}
 
+  /**
+   * Logs the user out by clearing localStorage and navigating to the welcome page.
+   * Displays a snack bar to confirm logout success.
+   */
   logout(): void {
     // Clear the stored token and user data from localStorage
     localStorage.removeItem('token');

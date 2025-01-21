@@ -6,21 +6,45 @@ import { DirectorDialogComponent } from '../director-dialog/director-dialog.comp
 import { SynopsisDialogComponent } from '../synopsis-dialog/synopsis-dialog.component';
 import { User } from '../user.model';
 
+/**
+ * MovieCardComponent displays a grid or list of movie cards.
+ * Allows the user to view details (genre, director, synopsis) 
+ * and manage favorite movies (add/remove).
+ */
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.scss']
 })
 export class MovieCardComponent implements OnInit {
-  @Input() movies: any[] = []; // Accept an array of movies from the parent component
-  favoriteMovies: string[] = []; // To store IDs of user's favorite movies
-  loadingFavorites: boolean = true; // Add a loading flag for favoriteMovies
+  /**
+   * An array of movie objects, possibly passed from a parent component.
+   */
+  @Input() movies: any[] = [];
+
+  /**
+   * Stores the IDs of the user's favorite movies.
+   */
+  favoriteMovies: string[] = [];
+
+  /**
+   * Indicates whether favorite movies are still loading.
+   */
+  loadingFavorites: boolean = true;
   
+  /**
+   * @param fetchApiData Service handling API calls
+   * @param dialog Angular Material dialog service
+   */
   constructor(
     public fetchApiData: FetchApiDataService,
     private dialog: MatDialog
   ) { }
 
+  /**
+   * Lifecycle hook: fetches movie data if `movies` array is empty,
+   * and loads user's favorite movies.
+   */
   ngOnInit(): void {
     if (this.movies.length === 0) {
       // If no movies are passed, fetch all movies
@@ -29,7 +53,9 @@ export class MovieCardComponent implements OnInit {
     this.getFavoriteMovies(); // Fetch user's favourite movies
   }
 
-   // Fetch all movies from the API
+   /**
+   * Fetches all movies from the API.
+   */
    getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe(
       (resp: any) => {
@@ -42,7 +68,9 @@ export class MovieCardComponent implements OnInit {
     );
   }
 
-  // Fetch the user's favourite movies (for displaying the favorite icon)
+  /**
+   * Fetches and stores the user's favorite movie IDs, to show heart icons.
+   */
   getFavoriteMovies(): void {
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
@@ -67,7 +95,11 @@ export class MovieCardComponent implements OnInit {
     );
   }
 
-  // Check if a movie is a favourite
+  /**
+   * Determines whether a movie ID is in the user's favorite list.
+   * @param movieId The movie's unique ID
+   * @returns True if movie is a favorite, otherwise false
+   */
   isFavorite(movieId: string): boolean {
     if (this.loadingFavorites) {
       return false; // Default to outline while loading
@@ -75,7 +107,10 @@ export class MovieCardComponent implements OnInit {
     return this.favoriteMovies.includes(movieId);
   }
 
-  // Toggle favourite status for a movie
+  /**
+   * Toggles a movie's favorite status: adds it if not favorite, removes it if already favorite.
+   * @param movieId The unique ID of the movie
+   */
   toggleFavorite(movieId: string): void {
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
@@ -112,21 +147,30 @@ export class MovieCardComponent implements OnInit {
     }
   }
 
-  // Open the Genre Dialog
+  /**
+   * Opens a dialog to display genre details for a given movie.
+   * @param movie The movie containing the genre data
+   */
   openGenreDialog(movie: any): void {
     this.dialog.open(GenreDialogComponent, {
       data: movie.Genre // Pass the Genre object to the dialog
     });
   }
 
-  // Open the Director Dialog
+  /**
+   * Opens a dialog to display director details for a given movie.
+   * @param movie The movie containing the director data
+   */
   openDirectorDialog(movie: any): void {
     this.dialog.open(DirectorDialogComponent, {
       data: movie.Director // Pass the Director object to the dialog
     });
   }
 
-  // Open the Synopsis Dialog
+  /**
+   * Opens a dialog to display the synopsis for a given movie.
+   * @param movie The movie containing the synopsis data
+   */
   openSynopsisDialog(movie: any): void {
     this.dialog.open(SynopsisDialogComponent, {
       data: movie // Pass the Movie object to the dialog

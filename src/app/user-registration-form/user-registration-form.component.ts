@@ -5,7 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FetchApiDataService } from '../services/fetch-api-data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
+/**
+ * UserRegistrationFormComponent provides a form for creating a new user account.
+ * On success, it closes the modal and displays a signup success message.
+ */
 @Component({
   selector: 'app-user-registration-form',
   templateUrl: './user-registration-form.component.html',
@@ -13,17 +16,30 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserRegistrationFormComponent implements OnInit {
 
+  /**
+   * Contains user registration details: username, password, email, birthdate.
+   */
   @Input() userData = { Username: '', Password: '', Email: '', BirthDate: '' };
 
+/**
+  * @param fetchApiData Service to communicate with the API (userRegistration method)
+  * @param dialogRef Reference to the dialog for closing on success or failure
+  * @param snackBar Provides feedback messages to the user
+  */
 constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
     public snackBar: MatSnackBar) { }
 
+/**
+   * Lifecycle hook.
+   */
 ngOnInit(): void {
 }
 
-// This is the function responsible for sending the form inputs to the backend
+/**
+   * Registers a new user with the API. On success, closes the modal and notifies the user.
+   */
 registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
   // Logic for a successful user registration goes here! (To be implemented)
