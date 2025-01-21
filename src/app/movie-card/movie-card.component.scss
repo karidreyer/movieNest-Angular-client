@@ -90,8 +90,8 @@ mat-card {
   /* Responsive Adjustments */
   @media (max-width: 1200px) {
     mat-card {
-      width: 250px;
-      height: 400px;
+      width: 100%;
+      height: auto;
     }
   }
   
