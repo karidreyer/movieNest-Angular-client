@@ -33,12 +33,11 @@ An Angular web application allowing users to browse movie information (genres, d
 
 ## Technology Stack
 
-- **Angular** (v15)
-- **Angular Material** for UI components
-- **RxJS** for async operations
-- **TypeScript**
-- **Node.js / npm**
-- **MongoDB** (on the server side, via the MovieNest API)
+- **Angular (v15)**: A modern, TypeScript-based framework for building scalable and dynamic single-page applications (SPAs).
+- **Angular Material**: A UI component library for Angular, providing pre-built, responsive, and customizable design components.
+- **RxJS**: A library for managing asynchronous operations and reactive programming, enabling efficient handling of data streams.
+- **TypeScript**: A statically typed superset of JavaScript, enhancing code reliability, maintainability, and development productivity.
+- **Node.js / npm**: A JavaScript runtime environment for server-side programming and npm (Node Package Manager) for managing dependencies.
 
 ---
 
